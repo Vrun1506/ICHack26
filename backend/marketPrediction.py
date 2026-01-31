@@ -1,6 +1,8 @@
 import yfinance as yf
 import pandas as pd
 import numpy as np
+
+# Futures tickers
 ticker_dict = {
     "corn": "ZC=F",
     "oat": "ZO=F",
@@ -14,11 +16,10 @@ ticker_dict = {
     "sugar": "SB=F"
 }
 
-
 class AgFuturesScorer:
 
     def __init__(self, ticker_dict, period="1y"):
-        self.tickers = ticker_dict   # keep dict
+        self.tickers = ticker_dict
         self.period = period
 
         self.close = None
@@ -27,9 +28,8 @@ class AgFuturesScorer:
 
         self.refresh()
 
-
     def refresh(self):
-
+        """Download historical price & volume data and compute volatility."""
         raw = yf.download(
             list(self.tickers.values()),
             period=self.period,
@@ -38,47 +38,55 @@ class AgFuturesScorer:
             progress=False
         )
 
-        print(type(raw))
-
-        # map crop name -> data
+        # Map crop -> close prices
         self.close = pd.DataFrame({
-            crop: raw[ticker]["Close"]
+            crop: raw[ticker]["Close"].values
             for crop, ticker in self.tickers.items()
         })
 
+        # Map crop -> volume
         self.volume = pd.DataFrame({
-            crop: raw[ticker]["Volume"]
+            crop: raw[ticker]["Volume"].values
             for crop, ticker in self.tickers.items()
         })
 
+        # Compute daily returns
         returns = self.close.pct_change()
-        self.volatility = returns.rolling(30).std()
+        returns.iloc[0] = 0  # set first row to 0
+        # Compute volatility as standard deviation of returns per crop
+        self.volatility = returns.std()
 
-
-    def _zscore(self, s, window=252):
-        return (s - s.rolling(window).mean()) / s.rolling(window).std()
-
-
-    def compute_score(self, crop):
-
-        price = self.close[crop]
-        volume = self.volume[crop]
-        vol = self.volatility[crop]
-
-        score = (
-            self._zscore(price)
-            - self._zscore(vol)
-            + 0.7 * self._zscore(volume)
-        )
-
-        return score.iloc[-1]
-
+    @staticmethod
+    def compute_z_score(series):
+        """Compute z-score of a pandas Series."""
+        return (series - series.mean()) / series.std()
 
     def compute_scores(self):
-        return {
-            crop: self.compute_score(crop)
-            for crop in self.tickers
-        }
+        """
+        Compute final scores for all crops with cross-crop normalization:
+        - Price: latest price compared to all crops
+        - Volume: latest volume compared to all crops
+        - Volatility: overall volatility compared to all crops
+        """
+        # Latest price and volume for all crops
+        price_latest = self.close.iloc[-1]
+        volume_latest = self.volume.iloc[-1]
+        vol_latest = self.volatility
 
+        # Compute z-scores across crops
+        price_z = (price_latest - price_latest.mean()) / price_latest.std()
+        volume_z = (volume_latest - volume_latest.mean()) / volume_latest.std()
+        vol_z = (vol_latest - vol_latest.mean()) / vol_latest.std()
+
+        # Weighted combination: higher score = more attractive crop
+        scores = 0.4 * price_z - 0.3 * vol_z + 0.3 * volume_z
+
+        return scores.to_dict()
+
+
+# --------------------
+# Example usage
+# --------------------
 my = AgFuturesScorer(ticker_dict)
-print(my.compute_scores())
+scores = my.compute_scores()
+print(scores)
