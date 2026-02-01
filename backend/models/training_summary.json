@@ -1,0 +1,122 @@
+{
+  "scotland": {
+    "auc_score": 0.9997344633594127,
+    "total_samples": 131065,
+    "train_samples": 104852,
+    "test_samples": 26213,
+    "extreme_events_train": 9530,
+    "extreme_events_test": 2383,
+    "scale_pos_weight": 10.00230849947534,
+    "confusion_matrix": [
+      [
+        23698,
+        132
+      ],
+      [
+        30,
+        2353
+      ]
+    ],
+    "feature_count": 20
+  },
+  "northeast": {
+    "auc_score": 0.9995649830837918,
+    "total_samples": 131065,
+    "train_samples": 104852,
+    "test_samples": 26213,
+    "extreme_events_train": 9153,
+    "extreme_events_test": 2288,
+    "scale_pos_weight": 10.455479077897957,
+    "confusion_matrix": [
+      [
+        23745,
+        180
+      ],
+      [
+        5,
+        2283
+      ]
+    ],
+    "feature_count": 20
+  },
+  "northwest": {
+    "auc_score": 0.999797243686636,
+    "total_samples": 131065,
+    "train_samples": 104852,
+    "test_samples": 26213,
+    "extreme_events_train": 9376,
+    "extreme_events_test": 2344,
+    "scale_pos_weight": 10.183020477815699,
+    "confusion_matrix": [
+      [
+        23765,
+        104
+      ],
+      [
+        22,
+        2322
+      ]
+    ],
+    "feature_count": 20
+  },
+  "yorkshire": {
+    "auc_score": 0.9998757516889788,
+    "total_samples": 131065,
+    "train_samples": 104852,
+    "test_samples": 26213,
+    "extreme_events_train": 9457,
+    "extreme_events_test": 2364,
+    "scale_pos_weight": 10.08723696732579,
+    "confusion_matrix": [
+      [
+        23750,
+        99
+      ],
+      [
+        24,
+        2340
+      ]
+    ],
+    "feature_count": 20
+  },
+  "midlands": {
+    "auc_score": 0.9997829745162908,
+    "total_samples": 131065,
+    "train_samples": 104852,
+    "test_samples": 26213,
+    "extreme_events_train": 9988,
+    "extreme_events_test": 2497,
+    "scale_pos_weight": 9.497797356828194,
+    "confusion_matrix": [
+      [
+        23582,
+        134
+      ],
+      [
+        23,
+        2474
+      ]
+    ],
+    "feature_count": 20
+  },
+  "east_anglia": {
+    "auc_score": 0.9997909745454622,
+    "total_samples": 131065,
+    "train_samples": 104852,
+    "test_samples": 26213,
+    "extreme_events_train": 9866,
+    "extreme_events_test": 2467,
+    "scale_pos_weight": 9.627609973646868,
+    "confusion_matrix": [
+      [
+        23625,
+        121
+      ],
+      [
+        18,
+        2449
+      ]
+    ],
+    "feature_count": 20
+  }
+}
