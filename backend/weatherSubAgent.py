@@ -77,7 +77,7 @@ class WeatherSubAgent:
 
 if __name__ == "__main__":
     try:
-        weather_agent = WeatherSubAgent(postcode="DA8 2HE")
+        weather_agent = WeatherSubAgent(postcode="SW11 3ND")
         print(weather_agent.get_strategy_signal())
     except Exception as e:
         print(f"Critical Error: {e}")
