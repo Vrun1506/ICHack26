@@ -436,28 +436,59 @@ export default function AuraApp() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-6">
-              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                <h4 className="font-bold text-slate-800 mb-6 flex items-center gap-2">
-                  <TrendingUp className="h-5 w-5 text-indigo-600" /> Price Forecast (6 Months)
-                </h4>
-                <div className="flex items-end gap-2 h-48 w-full">
-                  {currentCrop.priceData.map((price, i) => (
-                    <div key={`price-${selectedCrop}-${i}`} className="flex-1 flex flex-col justify-end group">
-                      <div 
-                        className="w-full bg-indigo-100 group-hover:bg-indigo-600 transition-all duration-300 rounded-t-sm relative"
-                        style={{ height: `${(price / Math.max(...currentCrop.priceData)) * 100}%` }}
-                      >
-                        <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                          £{price}
-                        </div>
-                      </div>
-                      <div className="text-center text-xs text-slate-400 mt-2">M{i+1}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+<div className="relative h-48 w-full">
+  
+  {/* Bars */}
+  <div className="flex items-end gap-2 h-48 w-full">
+    {currentCrop.priceData.map((price, i) => (
+      <div key={`price-${selectedCrop}-${i}`} className="flex-1 flex flex-col justify-end group">
+        <div 
+          className="w-full bg-indigo-100 group-hover:bg-indigo-600 transition-all duration-300 rounded-t-sm relative"
+          style={{ height: `${(price / Math.max(...currentCrop.priceData)) * 100}%` }}
+        >
+          <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+            £{price}
+          </div>
+        </div>
+        <div className="text-center text-xs text-slate-400 mt-2">M{i+1}</div>
+      </div>
+    ))}
+  </div>
+
+  {/* Line Overlay */}
+  <svg
+    className="absolute inset-0 pointer-events-none"
+    viewBox="0 0 100 100"
+    preserveAspectRatio="none"
+  >
+    <polyline
+      fill="none"
+      stroke="#4f46e5"
+      strokeWidth="0.4"
+      points={currentCrop.priceData.map((price, i) => {
+        const max = Math.max(...currentCrop.priceData)
+        // Adjust x position to center of each bar
+        const barWidth = 100 / currentCrop.priceData.length
+        const x = (i * barWidth) + (barWidth / 2)
+        const y = 100 - (price / max) * 100
+        return `${x},${y}`
+      }).join(" ")}
+    />
+
+    {/* Optional dots */}
+    {currentCrop.priceData.map((price, i) => {
+      const max = Math.max(...currentCrop.priceData)
+      const barWidth = 100 / currentCrop.priceData.length
+      const x = (i * barWidth) + (barWidth / 2)
+      const y = 100 - (price / max) * 100
+      return (
+        <circle key={i} cx={x} cy={y} r="0.4" fill="#4f46e5" />
+      )
+    })}
+  </svg>
+
+</div>
+
             <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm mt-8">
               {/* NEIGHBORING FARMS SECTION */}
               <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm mt-8">
