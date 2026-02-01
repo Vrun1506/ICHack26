@@ -54,9 +54,9 @@ class MarketModel:
 
 if __name__ == "__main__":
     # Get 180-day futures prices
-    futures_prices = []
+    futures_prices = {}
     
-    print("\n180-Day Futures Prices:")
+    print("\nFutures Prices in a year's time:")
     print("=" * 40)
     for crop, price in futures_prices.items():
         print(f"{crop:15} ${price:>10.2f}")
