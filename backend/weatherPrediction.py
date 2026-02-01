@@ -1,3 +1,5 @@
+# This is the weather prediction model for just regular weather predictions and stuff.
+
 import pandas as pd
 import xgboost as xgb
 class WeatherModel:

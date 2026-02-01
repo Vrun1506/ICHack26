@@ -1,0 +1,25 @@
+{
+  "name": "yorkshire",
+  "features": [
+    "temperature_2m",
+    "precipitation",
+    "soil_moisture_0_to_7cm",
+    "wind_gusts_10m",
+    "temperature_2m_lag_24h",
+    "temperature_2m_lag_48h",
+    "temperature_2m_lag_72h",
+    "precipitation_lag_24h",
+    "precipitation_lag_48h",
+    "precipitation_lag_72h",
+    "soil_moisture_0_to_7cm_lag_24h",
+    "soil_moisture_0_to_7cm_lag_48h",
+    "soil_moisture_0_to_7cm_lag_72h",
+    "wind_gusts_10m_lag_24h",
+    "wind_gusts_10m_lag_48h",
+    "wind_gusts_10m_lag_72h",
+    "temperature_2m_z_score",
+    "precipitation_z_score",
+    "soil_moisture_0_to_7cm_z_score",
+    "wind_gusts_10m_z_score"
+  ]
+}
