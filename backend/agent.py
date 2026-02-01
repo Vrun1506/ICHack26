@@ -70,7 +70,6 @@ class Agent:
             ]
 
         )
-
         return [crop_response.content + advice_response.content]
     
     def get_report(self):
