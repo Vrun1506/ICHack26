@@ -24,3 +24,30 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Add to the bottom of globals.css */
+
+.aura-glass {
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.font-mono-data {
+  font-family: var(--font-geist-mono), monospace;
+  letter-spacing: -0.05em;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.scanline::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent, rgba(99, 102, 241, 0.1), transparent);
+  animation: scanline 4s linear infinite;
+  pointer-events: none;
+}
