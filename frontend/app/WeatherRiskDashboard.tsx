@@ -15,18 +15,30 @@ interface WeatherRiskDashboardProps {
     weatherScore: number;
     priceScore: number;
   };
+  soilTexture?: string; // Optional prop for soil texture
 }
 
 export default function WeatherRiskDashboard({ 
   extremeWeather, 
   weatherAnomalies,
-  currentCrop 
+  currentCrop,
+  soilTexture
 }: WeatherRiskDashboardProps) {
   // Convert likelihood percentage to numeric value
   const likelihoodValue = parseFloat(extremeWeather.likelihood.replace('%', ''));
   
   return (
     <div className="space-y-4">
+      {/* Header with Soil Texture */}
+      {soilTexture && (
+        <div className="flex justify-between items-center">
+          <h2 className="text-lg font-semibold text-slate-800">Weather Risk Dashboard</h2>
+          <div className="text-sm text-slate-600 bg-slate-100 px-3 py-1 rounded-full">
+            Soil Texture: <span className="font-medium text-slate-800">{soilTexture}</span>
+          </div>
+        </div>
+      )}
+      
       {/* Extreme Weather Risk Card */}
       <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
         <div className="flex items-center gap-3 mb-2">

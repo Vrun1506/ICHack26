@@ -126,7 +126,7 @@ export default function FarmAnalysis({
         </div>
 
         {/* Farm Details */}
-        <FarmDetailsSidebar data={apiData.advice} />
+        <FarmDetailsSidebar data={apiData} />
 
         {/* Main Analysis Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

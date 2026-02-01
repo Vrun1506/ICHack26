@@ -24,7 +24,14 @@ export default function SoilAnalysisPanel({ data }: SoilAnalysisPanelProps) {
 
   return (
     <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-      <h3 className="font-bold text-lg text-slate-900 mb-4">Soil Composition</h3>
+      {/* Header with texture on the right */}
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="font-bold text-lg text-slate-900">Soil Composition</h3>
+        <div className="flex items-center gap-2 text-sm text-slate-700 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full">
+          <span className="text-slate-500">Texture:</span>
+          <span className="font-medium">{data.texture_class}</span>
+        </div>
+      </div>
       
       {/* Pie Chart using conic-gradient */}
       <div className="flex justify-center mb-6">
@@ -40,14 +47,7 @@ export default function SoilAnalysisPanel({ data }: SoilAnalysisPanelProps) {
               )`
             }}
           ></div>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center">
-              <div className="text-center">
-                <div className="text-xs text-slate-500 font-medium">Texture</div>
-                <div className="text-sm font-bold text-slate-900">{data.texture_class}</div>
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
 
@@ -55,7 +55,7 @@ export default function SoilAnalysisPanel({ data }: SoilAnalysisPanelProps) {
       <div className="space-y-2 mb-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-amber-900"></div>
+            <div className="w-3 h-3 rounded-full bg-red-500"></div>
             <span className="text-sm text-slate-600">Clay</span>
           </div>
           <span className="text-sm font-semibold text-slate-900">{data.clay.toFixed(1)}%</span>
