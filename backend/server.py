@@ -138,14 +138,14 @@ def getCrops(postcode: str, acreage: float):
         }
         
         # Verification
-        print("\n✅ Successfully generated agricultural strategy")
+        print("\nSuccessfully generated agricultural strategy")
         print(f"Crops allocated: {list(final_response.get('crop_data', {}).keys())}")
         print(f"Advice categories: {list(final_response.get('advice', {}).keys())}")
         
         return final_response
         
     except Exception as e:
-        print(f"\n❌ Error during agent generation: {e}")
+        print(f"\nError during agent generation: {e}")
         traceback.print_exc()
         
         return {
@@ -155,17 +155,16 @@ def getCrops(postcode: str, acreage: float):
 
 
 if __name__ == "__main__":
-    # Test mode - run a sample prediction
     print("\n" + "="*60)
     print("RUNNING TEST PREDICTION")
     print("="*60 + "\n")
     
-    result = getCrops("SE11 5HS", 13.2)
+    result = getCrops("SW1A 1AA", 13.2)
     
     print("\n" + "="*60)
     print("FINAL OUTPUT")
     print("="*60)
     print(json.dumps(result, indent=2))
     
-    # Uncomment to run the server
+    # import uvicorn
     # uvicorn.run(app, host="0.0.0.0", port=8000)

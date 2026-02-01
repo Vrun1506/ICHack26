@@ -226,9 +226,9 @@ def get_soil_texture_with_fallback(lon, lat, depth="0-5cm", max_attempts=10, ini
 
             if result is not None:
                 if attempt > 0:
-                    print(f"✅ Found data ~{distance_km:.1f}km away from original location")
+                    print(f"[OK] Found data ~{distance_km:.1f}km away from original location")
                 else:
-                    print(f"✅ Found data at original location")
+                    print(f"[OK] Found data at original location")
                 return {
                     'soil_data': result,
                     'actual_lon': test_lon,
@@ -242,9 +242,9 @@ def get_soil_texture_with_fallback(lon, lat, depth="0-5cm", max_attempts=10, ini
 
         # Expand search radius for next iteration
         radius *= radius_multiplier
-        print(f"📏 Expanding search radius to ~{radius*111:.1f}km")
+        print(f"[INFO] Expanding search radius to ~{radius*111:.1f}km")
 
-    print("❌ No soil data found in surrounding area")
+    print("[ERROR] No soil data found in surrounding area")
     return None
 
 def get_soil_from_postcode(postcode, depth="0-5cm", max_attempts=10, initial_radius=0.005, radius_multiplier=1.5):
@@ -265,16 +265,16 @@ def get_soil_from_postcode(postcode, depth="0-5cm", max_attempts=10, initial_rad
         location_data = lookup_postcode_lat_long(postcode)
 
         if location_data is None:
-            print(f"❌ Could not find coordinates for postcode: {postcode}")
+            print(f"[ERROR] Could not find coordinates for postcode: {postcode}")
             return None
 
         lat = location_data[0]
         lon = location_data[1]
 
-        print(f"📍 Coordinates: {lat:.4f}, {lon:.4f}")
+        print(f"[INFO] Coordinates: {lat:.4f}, {lon:.4f}")
 
     except Exception as e:
-        print(f"❌ Error looking up postcode: {e}")
+        print(f"[ERROR] Error looking up postcode: {e}")
         return None
 
     # Get soil data with fallback
@@ -310,24 +310,24 @@ if __name__ == "__main__":
     )
 
     if result:
-        print(f"\n📊 Soil Analysis for {result['postcode']}:")
+        print(f"\n[REPORT] Soil Analysis for {result['postcode']}:")
         print(f"\n  Composition:")
         print(f"    Clay: {result['soil_data']['clay']:.1f}%")
         print(f"    Sand: {result['soil_data']['sand']:.1f}%")
         print(f"    Silt: {result['soil_data']['silt']:.1f}%")
-        print(f"\n  🏷️  Texture Class: {result['texture_class']}")
+        print(f"\n  Texture Class: {result['texture_class']}")
         print(f"\n  Characteristics:")
         print(f"    Drainage: {result['properties']['drainage']}")
         print(f"    Water Retention: {result['properties']['water_retention']}")
         print(f"    Nutrient Retention: {result['properties']['nutrient_retention']}")
         print(f"    Workability: {result['properties']['workability']}")
-        print(f"\n  📝 {result['properties']['description']}")
+        print(f"\n  {result['properties']['description']}")
 
         if result['offset_from_original']:
-            print(f"\n  ⚠️  Data from {result['distance_km']:.1f}km away")
+            print(f"\n  [WARNING] Data from {result['distance_km']:.1f}km away")
             print(f"     Location: {result['actual_lon']:.4f}, {result['actual_lat']:.4f}")
     else:
-        print("\n❌ Could not find soil data")
+        print("\n[ERROR] Could not find soil data")
 
     print("\n" + "=" * 60)
     print("TEST 2: Rural area (gentle search)")
@@ -339,20 +339,20 @@ if __name__ == "__main__":
     )
 
     if result:
-        print(f"\n📊 Soil Analysis for {result['postcode']}:")
+        print(f"\n[REPORT] Soil Analysis for {result['postcode']}:")
         print(f"\n  Composition:")
         print(f"    Clay: {result['soil_data']['clay']:.1f}%")
         print(f"    Sand: {result['soil_data']['sand']:.1f}%")
         print(f"    Silt: {result['soil_data']['silt']:.1f}%")
-        print(f"\n  🏷️  Texture Class: {result['texture_class']}")
+        print(f"\n  Texture Class: {result['texture_class']}")
         print(f"\n  Characteristics:")
         print(f"    Drainage: {result['properties']['drainage']}")
         print(f"    Water Retention: {result['properties']['water_retention']}")
         print(f"    Nutrient Retention: {result['properties']['nutrient_retention']}")
         print(f"    Workability: {result['properties']['workability']}")
-        print(f"\n  📝 {result['properties']['description']}")
+        print(f"\n  {result['properties']['description']}")
 
         if result.get('distance_km', 0) > 0:
-            print(f"\n  ⚠️  Data from {result['distance_km']:.1f}km away")
+            print(f"\n  [WARNING] Data from {result['distance_km']:.1f}km away")
     else:
-        print("\n❌ Could not find soil data")
+        print("\n[ERROR] Could not find soil data")
